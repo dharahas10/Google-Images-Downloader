@@ -80,13 +80,14 @@ def urls_generate(search, preKeywords, postKeywords, l):
             get_links_download(string, l)
             if len(postKeywords) > 0:
                 for j in postKeywords:
-                    string = string+'+'+j
-                    get_links_download(string, l)
+
+                    new_string = string+'+'+j
+                    get_links_download(new_string, l)
 
     else:
         if len(postKeywords) > 0:
             for j in postKeywords:
-                string = string+'+'+j
+                string = search + '+' + j
                 get_links_download(string)
 
 
