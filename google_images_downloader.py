@@ -3,23 +3,27 @@ import urllib.parse
 from bs4 import BeautifulSoup
 import json
 from concurrent.futures import ThreadPoolExecutor
+import os
 
 # if any suggestions or corrections please msg me <kanna.dharahas@gmail.com>
 
 # Change only these three inputs , customise the functions if need be
 # Input main keyword for searching
-search = 'new york'
+global_search = "Taj Mahal"
 # Input if any keywords neccessary before the main keyword as ['a', 'b']
 preKeywords = []
 # Input if any keywords neccessary after the main keyword as ['a', 'b']
 postKeywords = []
 
+folder = os.makedirs(global_search)
+os.chdir(os.getcwd() + "/" + global_search)
+
 
 # Downloads images with respective name in the same folder
 def download(link):
     img = link.rsplit('/', 1)[1]
-    urllib.request.urlretrieve(link, img+".jpg")
-    # print('Link-->'+link+' Done!!!')
+    urllib.request.urlretrieve(link, img + ".jpg")
+    print('Link-->'+link+' Done!!!')
 
 
 # Creates multiple threads to download Images faster
@@ -53,7 +57,7 @@ def get_links_download(string, l):
         for link in links:
             obj = link.string
             obj = json.loads(obj)
-            print(obj['ou'])
+            # print(obj['ou'])
             urls.append(obj['ou'])
             saveFile.write(obj['ou']+'\n')
 
@@ -92,8 +96,8 @@ def urls_generate(search, preKeywords, postKeywords, l):
 
 
 # Used for calling the above process (Main function)
-urls_generate(search, preKeywords=preKeywords, postKeywords=postKeywords, l=False)
+# urls_generate(global_search, preKeywords=preKeywords, postKeywords=postKeywords, l=False)
 
 
 # If you need larger image sizes change l = True like the below comment
-# urls_generate(search, preKeywords=preKeywords, postKeywords=postKeywords, l=True)
+urls_generate(global_search, preKeywords=preKeywords, postKeywords=postKeywords, l=True)
